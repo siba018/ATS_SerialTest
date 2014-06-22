@@ -35,6 +35,7 @@ int Serial::Init()
 //	init();
 }
 void Serial::sendMessage(LPVOID buffer, int toWriteBytes){
+	//LPVOIDってポインタらしい（よくしらない）
 	DWORD writeBytes;
 	DWORD index = 0;
 	// 指定されたデータを全て書き込む為にループを廻す 

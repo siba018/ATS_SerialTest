@@ -219,13 +219,13 @@ ATS_API void WINAPI KeyDown(int atsKeyCode)
 		g_atssn.Reset();
 		g_atsp.Reset();
 		break;
-	case ATS_KEY_B2:
+	case ATS_KEY_B2: //end
 		//COMポートオープン
 		if (-1 == g_serial.Init()){
-			g_atsp.CheckSound();
+			g_atsp.CheckSound(); //ダメだったら鳴る
 		}
 		break;
-	case ATS_KEY_C1:
+	case ATS_KEY_C1: //pageup
 		//send
 		g_serial.sendMessage("a", 1);
 		break;

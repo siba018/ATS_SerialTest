@@ -14,23 +14,30 @@ Serial::~Serial()
 LPCSTR portName;
 HANDLE myHComPort;
 // 初期化する オープンでもある。
-int Serial::Init()
+void Serial::Init(){
+	isConnect = false;
+}
+int Serial::OpenPort()
 {
-	portName = "\\\\.\\COM13";
-	myHComPort = CreateFile(
-		(LPCTSTR)portName,
-		GENERIC_READ | GENERIC_WRITE,
-		0, NULL, OPEN_EXISTING, 0, NULL);
-	if (myHComPort == INVALID_HANDLE_VALUE) {
-		return -1;
+	if (isConnect == false){
+		portName = "\\\\.\\COM13";
+		myHComPort = CreateFile(
+			(LPCTSTR)portName,
+			GENERIC_READ | GENERIC_WRITE,
+			0, NULL, OPEN_EXISTING, 0, NULL);
+		if (myHComPort == INVALID_HANDLE_VALUE) {
+			return -1;
+		}
+		else{
+			isConnect = true;
+		}
+
+		// ポートのボーレート、パリティ等を設定 
+		DCB config;
+		config.BaudRate = 9600;
+		// Parity、StopBits、DataBitsも同様に設定 
+		SetCommState(myHComPort, &config);
 	}
-
-	// ポートのボーレート、パリティ等を設定 
-	DCB config;
-	config.BaudRate = 9600;
-	// Parity、StopBits、DataBitsも同様に設定 
-	SetCommState(myHComPort,&config);
-
 //	m_approachLampOld = 0;
 //	init();
 }

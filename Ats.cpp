@@ -129,7 +129,7 @@ ATS_API void WINAPI Initialize(int brake)
 	g_atssn.InitSn();
 	g_atsp.InitP();
 	g_spp.InitSpp();
-
+	g_serial.Init();
 	g_speed = 0;
 }
 
@@ -221,7 +221,7 @@ ATS_API void WINAPI KeyDown(int atsKeyCode)
 		break;
 	case ATS_KEY_B2: //end
 		//COMポートオープン
-		if (-1 == g_serial.Init()){
+		if (-1 == g_serial.OpenPort()){
 			g_atsp.CheckSound(); //ダメだったら鳴る
 		}
 		break;
